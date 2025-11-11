@@ -7,7 +7,7 @@ export default {
       const formData = new FormData();
       formData.append("file", Buffer.from(file.buffer), file.name);
 
-      const response = await axios.post(
+      const res = await axios.post(
         `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`,
         formData,
         {
@@ -18,14 +18,16 @@ export default {
         }
       );
 
-      if (response.data?.success) {
-        file.url = response.data.result.variants[0];
+      if (res.data?.success) {
+        // 👇 هذا الرابط اللي بنخزّنه في سترابي
+        file.url = res.data.result.variants[0];
+        console.log("✅ Cloudflare Upload Successful:", file.url);
       } else {
         throw new Error("Cloudflare upload failed");
       }
-    } catch (error: any) {
-      console.error("Cloudflare upload error:", error.message);
-      throw error;
+    } catch (err: any) {
+      console.error("Cloudflare upload error:", err.message);
+      throw err;
     }
   },
 
@@ -40,9 +42,8 @@ export default {
           },
         }
       );
-    } catch (error: any) {
-      console.error("Cloudflare delete error:", error.message);
+    } catch (err: any) {
+      console.error("Cloudflare delete error:", err.message);
     }
   },
 };
-
