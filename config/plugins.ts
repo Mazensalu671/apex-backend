@@ -1,9 +1,9 @@
 export default ({ env }) => ({
   upload: {
     config: {
-      provider: './config/upload-cloudflare',
+      // ✅ لاحظ .ts في النهاية
+      provider: './config/upload-cloudflare.ts',
       providerOptions: {},
     },
   },
 });
-
