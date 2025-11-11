@@ -1,8 +1,9 @@
 export default ({ env }) => ({
   upload: {
     config: {
-      provider: './config/plugins/upload-cloudflare',
+      provider: './config/upload-cloudflare',
       providerOptions: {},
     },
   },
 });
+
