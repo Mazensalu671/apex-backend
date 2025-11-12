@@ -1,15 +1,17 @@
+"use strict";
+
 const axios = require("axios");
 const FormData = require("form-data");
 
 module.exports = {
-  init() {
-    return {
+  provider: {
+    init: (config) => ({
       async upload(file) {
         try {
           const formData = new FormData();
           formData.append("file", Buffer.from(file.buffer), file.name);
 
-          const res = await axios.post(
+          const response = await axios.post(
             `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`,
             formData,
             {
@@ -20,15 +22,15 @@ module.exports = {
             }
           );
 
-          if (res.data?.success) {
-            file.url = res.data.result.variants[0];
-            console.log("✅ Cloudflare Upload Successful:", file.url);
+          if (response.data?.success) {
+            file.url = response.data.result.variants[0];
+            console.log("✅ Uploaded to Cloudflare:", file.url);
           } else {
-            throw new Error("Cloudflare upload failed");
+            console.error("❌ Cloudflare upload failed:", response.data);
           }
-        } catch (err) {
-          console.error("❌ Cloudflare upload error:", err.message);
-          throw err;
+        } catch (error) {
+          console.error("❌ Cloudflare upload error:", error.message);
+          throw error;
         }
       },
 
@@ -43,10 +45,11 @@ module.exports = {
               },
             }
           );
-        } catch (err) {
-          console.error("❌ Cloudflare delete error:", err.message);
+          console.log("🗑️ Deleted from Cloudflare:", id);
+        } catch (error) {
+          console.error("❌ Cloudflare delete error:", error.message);
         }
       },
-    };
+    }),
   },
 };
