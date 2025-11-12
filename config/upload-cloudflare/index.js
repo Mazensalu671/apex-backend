@@ -4,8 +4,9 @@ const axios = require("axios");
 const FormData = require("form-data");
 
 module.exports = {
-  provider: {
-    init: (config) => ({
+  // ✅ Strapi expects this directly
+  init(config) {
+    return {
       async upload(file) {
         try {
           const formData = new FormData();
@@ -50,6 +51,6 @@ module.exports = {
           console.error("❌ Cloudflare delete error:", error.message);
         }
       },
-    }),
+    };
   },
 };
