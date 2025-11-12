@@ -11,8 +11,8 @@ export default ({ env }) => ({
         upload: {
           async afterUpload(event) {
             const { result } = event;
-            if (result && result.url && !result.url.startsWith('https')) {
-              result.url = `${env('IMAGEKIT_URL_ENDPOINT')}/${result.url}`;
+            if (result && result.hash && result.ext) {
+              result.url = `${env('IMAGEKIT_URL_ENDPOINT')}/${result.hash}${result.ext}`;
             }
           },
         },
@@ -21,4 +21,3 @@ export default ({ env }) => ({
     },
   },
 });
-
