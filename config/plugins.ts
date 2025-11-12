@@ -1,9 +1,7 @@
-import path from "path";
-
 export default ({ env }) => ({
   upload: {
     config: {
-      provider: path.resolve(__dirname, "upload-cloudflare"),
+      provider: './config/upload-cloudflare', // ✅ لا تكتب index ولا .ts
       providerOptions: {},
     },
   },
