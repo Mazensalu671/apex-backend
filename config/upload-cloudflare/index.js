@@ -4,7 +4,6 @@ const axios = require("axios");
 const FormData = require("form-data");
 
 module.exports = {
-  // ✅ Strapi expects this directly
   init(config) {
     return {
       async upload(file) {
