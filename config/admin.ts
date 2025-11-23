@@ -1,8 +1,8 @@
 export default ({ env }) => ({
   auth: {
-    secret: process.env.ADMIN_JWT_SECRET,
+    secret: env('ADMIN_AUTH_SECRET'),
     options: {
-      expiresIn: '7d', // يمدد صلاحية الجلسة إلى 7 أيام
+      expiresIn: '7d',
     },
   },
   apiToken: {
@@ -20,6 +20,4 @@ export default ({ env }) => ({
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
-  
 });
-
