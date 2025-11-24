@@ -10,22 +10,28 @@ export default [
             "'self'",
             "data:",
             "blob:",
-            "https://market-assets.strapi.io",
-            "https://ik.imagekit.io/uwhb4abom",
-            "*.imagekit.io"
+            "*.imagekit.io",
+            "https://ik.imagekit.io/uwhb4abom"
           ],
           "media-src": [
             "'self'",
             "data:",
             "blob:",
-            "https://ik.imagekit.io/uwhb4abom",
-            "*.imagekit.io"
+            "*.imagekit.io",
+            "https://ik.imagekit.io/uwhb4abom"
           ],
         },
       },
     },
   },
-  'strapi::cors',
+  {
+    name: "strapi::cors",
+    config: {
+      origin: ["https://apx-ics.com", "http://localhost:5173"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      headers: ["Content-Type", "Authorization", "Origin", "Accept"],
+    },
+  },
   'strapi::logger',
   'strapi::query',
   'strapi::body',
